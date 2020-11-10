@@ -1,0 +1,22 @@
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+main > .container {
+  padding: 60px 15px 0;
+}
+
+.footer {
+  text-align: center;
+  background-color: white
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+/Users/user/nodejs/customerCounter/counter/public/css/sticky-footer-navbar.css

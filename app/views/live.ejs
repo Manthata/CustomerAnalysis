@@ -1,0 +1,81 @@
+<%- include('./partials/header.ejs') %>
+
+<%- include('./partials/navigation.ejs') %>
+<!-- Begin page content -->
+<script src="https://kit.fontawesome.com/e3552a39d7.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"
+    integrity="sha512-WIklPM6qPCIp6d3fSSr90j+1unQHUOoWDS4sdTiR8gxUTnyZ8S2Mr8e10sKKJ/bhJgpAa/qG068RDkg6fIlNFA=="
+    crossorigin="anonymous"></script>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+            </button>
+        </div>
+    </div>
+        <div class="container">
+            <div class="row">
+            <div class="col">
+                 <div class="embed-responsive embed-responsive-16by9">
+                 <img id="image" class="embed-responsive-item" src="" allowfullscreen></img>
+                 </div>
+            </div>
+            <div class="row">
+                <h2 id="frames"></h2>
+
+            </div>
+
+        </div>
+        
+            
+    </div>
+<br>
+<hr>
+    <h2>Live data  </h2>
+    <div class="table-responsive">
+        
+    </div>
+</main>
+</div>
+</div>
+<script>
+    //by inputing the reconnect variable we allow the socket io to re-establish a connection with the server
+    var socket = io.connect('http://' + document.domain + ':' + location.port + '/web', {
+            reconnection: true
+        });
+    socket.on("connect", () => {
+        console.log("we are connected to the server")
+        // socket.emit('login', { userKey: 'Steaming API Key' });
+    })
+    
+    socket.emit("hello", "Hello")
+
+    socket.on("image", message => {
+        // console.log("data", image);
+        // var bytes = new Uint8Array(image);
+        // console.log(bytes)
+
+        const imageElem = document.getElementById('image');
+        const textElem = document.getElementById("frames")
+        imageElem.src = message.image;
+        //console.log(imageElem)
+        textElem.innerHTML = message.text
+
+        //imageElem.src = 'data:multipart/x-mixed-replace;base64${image}';
+        //imageElem.src = image;
+        
+    })
+    // socket.on("connect", "hello there")
+</script>
+</main>
+
+
+<%- include('./partials/footer.ejs') %>
